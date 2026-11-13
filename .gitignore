@@ -1,0 +1,24 @@
+# Python / Venv
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+env/
+venv/
+
+# Django
+*.sqlite3
+db.sqlite3
+media/
+staticfiles/
+
+# Variáveis de ambiente
+.env
+
+# IDEs
+.vscode/
+.idea/
+
+# Testes / Linter
+.pytest_cache/
+.ruff_cache/
