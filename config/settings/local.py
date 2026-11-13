@@ -3,6 +3,8 @@ from .base import *
 DEBUG = True
 SECRET_KEY = os.getenv("SECRET_KEY", "django-insecure-dev-key-change-me")
 ALLOWED_HOSTS = ["localhost", "127.0.0.1"]
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/accounts/login/'
 
 # Banco de dados para desenvolvimento local (SQLite ou Postgres via Docker)
 DATABASES = {

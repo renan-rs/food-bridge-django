@@ -1,43 +1,55 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from .models import CustomUser
+from .forms import CustomUserCreationForm, CustomUserChangeForm
 
 @admin.register(CustomUser)
 class CustomUserAdmin(UserAdmin):
     model = CustomUser
+
+    # Define quais formulários o admin deve usar para criar e editar
+    add_form = CustomUserCreationForm
+    form = CustomUserChangeForm
+
     list_display = [
-        'username',
-        'email',
-        'role',
-        'is_verified',
-        'is_staff',
+        "username",
+        "email",
+        "role",
+        "is_verified",
+        "is_staff",
     ]
 
     list_filter = ['role', 'is_verified', 'is_staff', 'is_active']
+
+    # Campos que aparecem na tela de EDIÇÃO de um usuário existente
     fieldsets = UserAdmin.fieldsets + (
         (
-            'Informações Adicionais (Marketplace)',
+            "Informações Adicionais (Marketplace)",
             {
-                'fields': (
-                    'role',
-                    'phone',
-                    'address',
-                    'latitude',
-                    'longitude',
-                    'is_verified',
+                "fields": (
+                    "role",
+                    "phone",
+                    "address",
+                    "latitude",
+                    "longitude",
+                    "is_verified",
                 )
             },
         ),
     )
+
+    # Campos que aparecem na tela de CRIAÇÃO de um novo usuário no admin
     add_fieldsets = UserAdmin.add_fieldsets + (
         (
-            'Informações Adicionais (Marketplace)',
+            "Informações Adicionais (Marketplace)",
             {
-                'fields': (
-                    'role',
-                    'phone',
-                    'address',
-                    'is_verified',
+                "fields": (
+                    "role",
+                    "phone",
+                    "address",
+                    "latitude",
+                    "longitude",
+                    "is_verified",
                 )
             },
         ),
