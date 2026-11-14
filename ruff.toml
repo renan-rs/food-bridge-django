@@ -1,0 +1,18 @@
+# ruff.toml
+line-length = 88
+target-version = "py312"
+
+[lint]
+select = [
+    "E",   # Pycodestyle errors
+    "F",   # Pyflakes
+    "I",   # Isort (imports organizados automaticamente)
+    "UP",  # Pyupgrade
+]
+ignore = [
+    "E501", # Ignorar limite estrito de linha se necessário (o formatter cuida)
+]
+
+[format]
+quote-style = "double"
+indent-style = "space"
