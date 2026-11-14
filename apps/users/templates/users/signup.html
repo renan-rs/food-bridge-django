@@ -5,16 +5,48 @@
     <title>Cadastro - Food Bridge</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-gray-50 flex items-center justify-center min-h-screen py-12">
-    <div class="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
-        <h2 class="text-2xl font-bold mb-6 text-center text-gray-800">Criar Conta</h2>
+<body class="bg-gray-100 min-h-screen flex items-center justify-center p-6">
+    <div class="max-w-md w-full bg-white rounded-lg shadow-md p-8">
+        <h2 class="text-2xl font-bold text-gray-800 mb-6 text-center">Criar Conta</h2>
+
         <form method="post" class="space-y-4">
             {% csrf_token %}
-            {{ form.as_p }}
-            <button type="submit" class="w-full bg-green-600 text-white py-2 rounded hover:bg-green-700 transition">Cadastrar</button>
+
+            <!-- Exibe erros globais do formulário, se houver -->
+            {% if form.non_field_errors %}
+                <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded text-sm">
+                    {{ form.non_field_errors }}
+                </div>
+            {% endif %}
+
+            {% for field in form %}
+                <div>
+                    <label class="block text-gray-700 text-sm font-semibold mb-1" for="{{ field.id_for_label }}">
+                        {{ field.label }}
+                    </label>
+                    
+                    <!-- Renderiza o input com classes do Tailwind -->
+                    {{ field }}
+
+                    <!-- Erros específicos do campo -->
+                    {% if field.errors %}
+                        <p class="text-red-500 text-xs mt-1">{{ field.errors.0 }}</p>
+                    {% endif %}
+
+                    <!-- Ajuda do campo (se houver, ex: regras de senha de forma discreta) -->
+                    {% if field.help_text and field.name != 'password1' and field.name != 'password' %}
+                        <p class="text-gray-500 text-xs mt-1">{{ field.help_text }}</p>
+                    {% endif %}
+                </div>
+            {% endfor %}
+
+            <button type="submit" class="w-full bg-green-600 text-white py-2 rounded-lg font-semibold hover:bg-green-700 transition">
+                Cadastrar
+            </button>
         </form>
-        <p class="mt-4 text-sm text-center text-gray-600">
-            Já tem uma conta? <a href="{% url 'users:login' %}" class="text-green-600 font-semibold">Entrar</a>
+
+        <p class="text-center text-sm text-gray-600 mt-4">
+            Já tem uma conta? <a href="{% url 'users:login' %}" class="text-green-600 font-semibold hover:underline">Faça login</a>
         </p>
     </div>
 </body>
